@@ -55,14 +55,33 @@ function PhoneCard() {
 // Question 6 : OTP Number Insert
 function OTPCard() {
     const setcurrentState = useSetRecoilState(CurrentStatus)
+    const OTP = useRecoilValue(OTPAtom).toString()
+    const opt_list = OTP.split("")
+    
+
     return <div className="w-[25%] rounded-2xl 
   bg-[linear-gradient(315deg,#d9d9d9,#f8f8f8)]
   shadow-[20px_20px_40px_#bebebe,-20px_-20px_40px_#ffffff]
   p-6 text-center flex justify-center items-center flex-col gap-2">
+        {/* Onclick the Current status will be 'Phone_Card' where the Phone card will render */}
         <button className='border-black border-1 p-2 rounded-xl absolute top-2 left-2 cursor-pointer'
             onClick={() => {
                 setcurrentState("Phone_Card")
             }}
         >Return</button>
+        {/* Title of the Card */}
+        <h1 className='text-3xl font-medium'>Login Via OTP</h1>
+
+        {/* OTP Number Insertion */}
+        <div className='flex justify-center items-center gap-2'>
+            {opt_list.map((digit, idx)=>{
+                <input
+                    type="number"
+                    className='border-1 border-black rounded-[8px] w-15 h-15 otp-input-no-spinners'
+                />
+            })}
+        </div>
+
+
     </div>
 }
