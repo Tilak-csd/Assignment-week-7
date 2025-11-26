@@ -8,15 +8,11 @@ export const NumWords = atom({
 
 export const phonenumber = atom({
     key : "phonenumber",
-    default : 0
+    default : null
 })
 
-export const OTPQuery = selector({
-    key : "OTPQuery",
-    get  : ({get}) =>{
-        const phoneNumber = get(phonenumber)
-        const OTPNumber = Math.floor(Math.random() * 10000)
-        if (!phoneNumber) return null;
-        return OTPNumber 
-    }
+export const OTPAtom = atom({
+    key : "OTPAtom",
+    default : null
 })
+   

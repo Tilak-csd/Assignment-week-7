@@ -1,7 +1,6 @@
 import React from 'react'
-import { OTPQuery } from '../store/atoms/main'
-import { phonenumber } from '../store/atoms/main'
-import { useRecoilValue, useSetRecoilState } from 'recoil'
+import { OTPAtom, phonenumber } from '../store/atoms/main'
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
 
 export default function OTPLogin() {
     return (
@@ -12,11 +11,19 @@ export default function OTPLogin() {
 }
 
 function Card() {
-    const setPhoneNumber = useSetRecoilState(phonenumber)
+    const [phoneNumber, setPhoneNumber] = useRecoilState(phonenumber)
 
-    const OTPNumber = useRecoilValue(OTPQuery)
-    function OTPDisplay() {
-        console.log(OTPNumber);
+    const setOTP = useSetRecoilState(OTPAtom)
+    function handleOPT() {
+        if (!phoneNumber) {
+            console.log("Enter a phone number");
+            return;
+        }
+        const newOTP = Math.floor(Math.random() * 10000)
+        setOTP(newOTP)
+        console.log(` OPT Generated for ${phoneNumber} : ${newOTP}`);
+        alert(`Your OTP is ${newOTP}`)
+    
     }
 
 
@@ -32,7 +39,7 @@ function Card() {
         />
 
         <button className='border-[1px] border-black rounded-[4px] px-7 py-2 cursor-pointer hover:bg-black hover:text-white'
-            onClick={OTPDisplay}
+            onClick={handleOPT}
         >Send OTP</button>
 
     </div>
