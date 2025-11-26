@@ -49,10 +49,15 @@ function PhoneCard() {
 
 
 function OTPCard(){
+    const setcurrentState = useSetRecoilState(CurrentStatus)
     return <div className="w-[25%] rounded-2xl 
   bg-[linear-gradient(315deg,#d9d9d9,#f8f8f8)]
   shadow-[20px_20px_40px_#bebebe,-20px_-20px_40px_#ffffff]
   p-6 text-center flex justify-center items-center flex-col gap-2">
-    heelo
+    <button className='border-black border-1 p-2 rounded-xl absolute top-2 left-2 cursor-pointer'
+    onClick={()=>{
+        setcurrentState("Phone_Card")
+    }}
+    >Return</button>
   </div>
 }
