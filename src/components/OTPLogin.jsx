@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef} from 'react'
 import { OTPAtom, phonenumber, CurrentStatus } from '../store/atoms/main'
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
 
@@ -55,9 +55,32 @@ function PhoneCard() {
 // Question 6 : OTP Number Insert
 function OTPCard() {
     const setcurrentState = useSetRecoilState(CurrentStatus)
-    const OTP = useRecoilValue(OTPAtom).toString()
-    const opt_list = OTP.split("")
-    
+    const OTP = useRecoilValue(OTPAtom)
+    const [otp_list, setOTP] = useState(["", "", "", ""])
+    const inputs = useRef([])
+
+    function handleChange(e, index) {
+        const value = e.target.value
+        if (/^\d?$/.test(value)) {
+            const newOTP = [...otp_list]
+            newOTP[index] = value
+            setOTP(newOTP)
+
+            if (value && index < 3) {
+                inputs.current[index + 1].focus()
+            }
+        }
+
+    }
+
+
+    const handleKeyDown = (e, index) => {
+        if (e.key === "Backspace" && !otp_list[index] && index > 0) {
+            inputs.current[index - 1].focus();
+        }
+
+    }
+
 
     return <div className="w-[25%] rounded-2xl 
   bg-[linear-gradient(315deg,#d9d9d9,#f8f8f8)]
@@ -73,14 +96,21 @@ function OTPCard() {
         <h1 className='text-3xl font-medium'>Login Via OTP</h1>
 
         {/* OTP Number Insertion */}
-        <div className='flex justify-center items-center gap-2'>
-            {opt_list.map((digit, idx)=>{
-                <input
-                    type="number"
-                    className='border-1 border-black rounded-[8px] w-15 h-15 otp-input-no-spinners'
+        <div className='flex justify-center items-center gap-2 mt-3'>
+            {otp_list.map((digit, idx) => {
+                return <input
+                ref={(el) => (inputs.current[idx] = el) }
+                    key={idx}
+                    type="text"
+                    maxLength={1}
+                    value={digit}
+                    onChange={(e) => handleChange(e, idx)}
+                    onKeyDown={(e) => handleKeyDown(e, idx)}
+                    className='w-14 h-14 border border-gray-300 rounded-xl text-center text-xl font-semibold focus:outline-none focus:border-blue-500'
                 />
             })}
         </div>
+        <button>Submit</button>
 
 
     </div>
