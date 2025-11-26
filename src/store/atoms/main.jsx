@@ -1,4 +1,5 @@
 
+import { useEffect } from 'react'
 import { atom, selector } from 'recoil' 
 export const NumWords = atom({
     key : "NumWords",
@@ -13,8 +14,14 @@ export const phonenumber = atom({
 export const OTP = selector({
     key : "OTP",
     value  : ({get}) =>{
-        return 
+        const phoneNumber = get(phonenumber)
+        return OTPGenerattion(phoneNumber)
     }
 })
 
-function OTPGenerattion 
+function OTPGenerattion(phonenumber){
+   return useEffect(()=>{
+        const OTPnumber = Math.floor(Math.random * 10000)
+        return OTPnumber
+    }, [phonenumber])
+}
