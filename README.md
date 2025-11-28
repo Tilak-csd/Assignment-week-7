@@ -1,4 +1,4 @@
-# React Interactive Utility Project
+## React Interactive Utility Project
 
 This React project is a collection of interactive utility components, showcasing multiple mini-apps including a **birthday wish card generator**, **OTP login system**, **GitHub profile fetcher**, **paragraph generator**, and a **profile UI with background color changer**. It uses **Recoil** for state management and **Tailwind CSS** for styling.
 
